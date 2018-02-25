@@ -7,11 +7,13 @@ angular.module('MyApp', ['ngRoute', 'satellizer'])
     $routeProvider
       .when('/', {
         templateUrl: 'partials/home.html',
+        controller: 'HomeCtrl',
         resolve: { loginRequired: loginRequired }
       })
       .when('/contact', {
         templateUrl: 'partials/contact.html',
-        controller: 'ContactCtrl'
+        controller: 'ContactCtrl',
+        resolve: { loginRequired: loginRequired }
       })
       .when('/login', {
         templateUrl: 'partials/login.html',
@@ -22,6 +24,16 @@ angular.module('MyApp', ['ngRoute', 'satellizer'])
         templateUrl: 'partials/signup.html',
         controller: 'SignupCtrl',
         resolve: { skipIfAuthenticated: skipIfAuthenticated }
+      })
+      .when('/waiting', {
+        templateUrl: 'partials/waiting.html',
+        controller: 'WaitingCtrl',
+        resolve: { loginRequired: loginRequired }
+      })
+      .when('/finished', {
+        templateUrl: 'partials/finished.html',
+        controller: 'FinishedCtrl',
+        resolve: { loginRequired: loginRequired }
       })
       .when('/account', {
         templateUrl: 'partials/profile.html',
@@ -81,6 +93,11 @@ angular.module('MyApp')
   }]);
 
 angular.module('MyApp')
+  .controller('FinishedCtrl', ["$scope", function($scope) {
+   
+  }]);
+
+angular.module('MyApp')
   .controller('ForgotCtrl', ["$scope", "Account", function($scope, Account) {
     $scope.forgotPassword = function() {
       Account.forgotPassword($scope.user)
@@ -112,6 +129,11 @@ angular.module('MyApp')
       delete $window.localStorage.user;
       $location.path('/');
     };
+  }]);
+
+angular.module('MyApp')
+  .controller('HomeCtrl', ["$scope", function($scope) {
+   
   }]);
 
 angular.module('MyApp')
@@ -280,6 +302,11 @@ angular.module('MyApp')
         });
     };
   }]);
+angular.module('MyApp')
+  .controller('WaitingCtrl', ["$scope", function($scope) {
+   
+  }]);
+
 angular.module('MyApp')
   .factory('Account', ["$http", function($http) {
     return {

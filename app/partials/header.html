@@ -7,11 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/" class="navbar-brand">Project name</a>
+      <a href="/" class="navbar-brand">TV Track</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li ng-class="{ active: isActive('/')}"><a href="/">Home</a></li>
+        <li ng-class="{ active: isActive('/')}"><a href="/">Watchlist</a></li>
+        <li ng-class="{ active: isActive('/waiting')}"><a href="/waiting">Waiting</a></li>
+        <li ng-class="{ active: isActive('/finished')}"><a href="/finished">Finished</a></li>
         <li ng-class="{ active: isActive('/contact')}"><a href="/contact">Contact</a></li>
       </ul>
       <ul ng-if="isAuthenticated()" class="nav navbar-nav navbar-right">
