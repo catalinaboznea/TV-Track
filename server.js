@@ -70,6 +70,8 @@ app.post('/reset/:token', userController.resetPost);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
 
 app.post('/show', showController.addShow);
+app.get('/shows', showController.getAllShows);
+app.delete('/show', showController.deleteShow);
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'app', 'index.html'));

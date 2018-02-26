@@ -98,8 +98,31 @@ angular.module('MyApp')
   }]);
 
 angular.module('MyApp')
-  .controller('FinishedCtrl', ["$scope", function($scope) {
-   
+  .controller('FinishedCtrl', ["$scope", "$location", "Show", function($scope, $location, Show) {
+    $scope.goToCreate = function(){
+      $location.path('/show');
+     };
+
+     $scope.deleteShow = function (show) {
+      Show.delete(show.id).then(function (response) {
+        if (response) {
+          init();
+        }
+      });
+    };
+  
+     init();
+  
+     function init(){
+      Show.getAll().then(function(response){
+        if(response){
+          console.log(response);
+          $scope.shows = response.data.shows.filter(function(elem){
+            return elem.list === 'finished';
+          });
+        }
+      })
+     }
   }]);
 
 angular.module('MyApp')
@@ -137,10 +160,30 @@ angular.module('MyApp')
   }]);
 
 angular.module('MyApp')
-  .controller('HomeCtrl', ["$scope", "$location", function($scope, $location) {
-   $scope.goToCreate = function(){
-    $location.path('/show');
-   };
+  .controller('HomeCtrl', ["$scope", "$location", "Show", function ($scope, $location, Show) {
+    $scope.goToCreate = function () {
+      $location.path('/show');
+    };
+
+    $scope.deleteShow = function (show) {
+      Show.delete(show.id).then(function (response) {
+        if (response) {
+          init();
+        }
+      });
+    };
+
+    init();
+
+    function init() {
+      Show.getAll().then(function (response) {
+        if (response) {
+          $scope.shows = response.data.shows.filter(function (elem) {
+            return elem.list === 'watching';
+          });
+        }
+      })
+    }
   }]);
 
 angular.module('MyApp')
@@ -320,8 +363,31 @@ angular.module('MyApp')
     };
   }]);
 angular.module('MyApp')
-  .controller('WaitingCtrl', ["$scope", function($scope) {
-   
+  .controller('WaitingCtrl', ["$scope", "$location", "Show", function($scope, $location, Show) {
+    $scope.goToCreate = function(){
+      $location.path('/show');
+     };
+
+     $scope.deleteShow = function (show) {
+      Show.delete(show.id).then(function (response) {
+        if (response) {
+          init();
+        }
+      });
+    };
+  
+     init();
+  
+     function init(){
+      Show.getAll().then(function(response){
+        if(response){
+          console.log(response);
+          $scope.shows = response.data.shows.filter(function(elem){
+            return elem.list === 'waiting';
+          });
+        }
+      })
+     }
   }]);
 
 angular.module('MyApp')
@@ -357,6 +423,17 @@ angular.module('MyApp')
     return {
       add: function(data) {
         return $http.post('/show', data);
+      },
+      getAll: function(){
+        return $http.get('/shows');
+      },
+      delete: function(data){
+        var p = {
+          params: {
+            id: data
+          }
+        };
+        return $http.delete('/show', p);
       }
     };
   }]);

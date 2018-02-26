@@ -5,7 +5,27 @@
               <div class="panel-body">
                 <h3>Waiting</h3>
                 <p>Keep an eye on the new seasons of your tv shows...</p>
-                <a href="#" role="button" class="btn btn-default">View details</a>
+                <div>
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                          <tr>
+                          <th>Name</th>
+                          <th>Season</th>
+                          <th></th>
+                          </tr>
+                        </thead>
+                        <tbody ng-repeat="show in shows">
+                          <tr>
+                            <td>{{show.name}}</td>
+                            <td>{{show.season}}</td>
+                            <td>
+                               <button class="btn btn-danger" ng-click="deleteShow(show)">Delete</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                  <a href="#" role="button" class="btn btn-primary" ng-click="goToCreate()">Add new show</a>
               </div>
             </div>
           </div>
