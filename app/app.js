@@ -23,6 +23,11 @@ angular.module('MyApp', ['ngRoute', 'satellizer'])
         controller: 'SignupCtrl',
         resolve: { skipIfAuthenticated: skipIfAuthenticated }
       })
+      .when('/show', {
+        templateUrl: 'partials/show.html',
+        controller: 'ShowCtrl',
+        resolve: { loginRequired: loginRequired }
+      })
       .when('/waiting', {
         templateUrl: 'partials/waiting.html',
         controller: 'WaitingCtrl',

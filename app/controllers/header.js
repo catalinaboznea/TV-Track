@@ -11,6 +11,6 @@ angular.module('MyApp')
     $scope.logout = function() {
       $auth.logout();
       delete $window.localStorage.user;
-      $location.path('/');
+      $location.path('/login');
     };
   });

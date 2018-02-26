@@ -25,6 +25,11 @@ angular.module('MyApp', ['ngRoute', 'satellizer'])
         controller: 'SignupCtrl',
         resolve: { skipIfAuthenticated: skipIfAuthenticated }
       })
+      .when('/show', {
+        templateUrl: 'partials/show.html',
+        controller: 'ShowCtrl',
+        resolve: { loginRequired: loginRequired }
+      })
       .when('/waiting', {
         templateUrl: 'partials/waiting.html',
         controller: 'WaitingCtrl',
@@ -127,13 +132,15 @@ angular.module('MyApp')
     $scope.logout = function() {
       $auth.logout();
       delete $window.localStorage.user;
-      $location.path('/');
+      $location.path('/login');
     };
   }]);
 
 angular.module('MyApp')
-  .controller('HomeCtrl', ["$scope", function($scope) {
-   
+  .controller('HomeCtrl', ["$scope", "$location", function($scope, $location) {
+   $scope.goToCreate = function(){
+    $location.path('/show');
+   };
   }]);
 
 angular.module('MyApp')
@@ -143,7 +150,7 @@ angular.module('MyApp')
         .then(function(response) {
           $rootScope.currentUser = response.data.user;
           $window.localStorage.user = JSON.stringify(response.data.user);
-          $location.path('/account');
+          $location.path('/');
         })
         .catch(function(response) {
           $scope.messages = {
@@ -266,6 +273,16 @@ angular.module('MyApp')
   }]);
 
 angular.module('MyApp')
+    .controller('ShowCtrl', ["$scope", "$location", "Show", function ($scope, $location, Show) {
+        $scope.saveShow = function (show) {
+            Show.add(show).then(function(response){
+                $location.path('/');
+            });
+        };
+
+    }]);
+
+angular.module('MyApp')
   .controller('SignupCtrl', ["$scope", "$rootScope", "$location", "$window", "$auth", function($scope, $rootScope, $location, $window, $auth) {
     $scope.signup = function() {
       $auth.signup($scope.user)
@@ -332,6 +349,14 @@ angular.module('MyApp')
     return {
       send: function(data) {
         return $http.post('/contact', data);
+      }
+    };
+  }]);
+angular.module('MyApp')
+  .factory('Show', ["$http", function($http) {
+    return {
+      add: function(data) {
+        return $http.post('/show', data);
       }
     };
   }]);
