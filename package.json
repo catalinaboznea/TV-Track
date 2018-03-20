@@ -1,7 +1,8 @@
 {
-  "name": "lively-scene",
-  "version": "1.0.0",
-  "description": "My app description",
+  "name": "tv-track",
+  "version": "2.0",
+  "description": "Tv track is a school project.",
+  "author" : "Catalina Boznea & Bogdan Nedelea",
   "scripts": {
     "build": "gulp build",
     "build:production": "gulp build --production",
